@@ -1,0 +1,41 @@
+.containerAppointment {
+    background-color: #1a1a1a;
+    padding: 20px;
+    margin-bottom: 20px; 
+    border-radius: 10px; 
+    border-left: 5px solid #f0a500; 
+    transition: transform 0.2s ease-in-out;
+}
+
+.containerAppointment:hover {
+    transform: scale(1.02); 
+}
+
+p {
+    margin: 10px 0;
+}
+
+button {
+    background-color: #f0a500; 
+    color: #1a1a1a; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #d48e00; 
+}
+
+button:disabled {
+    background-color: #555; 
+    cursor: not-allowed;
+}
+
+p:last-child {
+    color: #ff4c4c; 
+    font-weight: bold;
+}
