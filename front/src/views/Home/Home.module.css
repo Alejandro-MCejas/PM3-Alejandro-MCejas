@@ -22,8 +22,14 @@ img {
     margin-bottom: 20px;
 }
 
-p {
-    font-size: 18px;
+.parrafosHome {
+    font-size: 28px;
     margin-bottom: 15px;
     font-weight: normal;
+    color: #f1f1f1; 
+}
+
+
+.containerHome .parrafosHome:last-child {
+    color: #f1f1f1;
 }
