@@ -5,6 +5,9 @@
     border-radius: 10px; 
     border-left: 5px solid #f0a500; 
     transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .containerAppointment:hover {
@@ -38,4 +41,5 @@ button:disabled {
 p:last-child {
     color: #ff4c4c; 
     font-weight: bold;
+    margin-top: 10px; 
 }
