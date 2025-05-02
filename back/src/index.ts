@@ -3,6 +3,7 @@ import { PORT } from "./config/envs";
 import "reflect-metadata";
 import { AppDataSource } from "./config/data-source";
 import { preloadAppointmentsData, preloadUserData } from "./helpers/preloadData"
+import { keepServerAwake } from "./utils/keepServerAwake";
 
 
 const initializeApp = async () => {
@@ -17,6 +18,8 @@ const initializeApp = async () => {
     app.listen(PORT, () => {
         console.log(`Servidor escuchando en el puerto: ${PORT}`);
     })
+
+    keepServerAwake()
 }
 
 initializeApp()
