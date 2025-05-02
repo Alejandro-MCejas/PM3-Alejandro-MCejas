@@ -5,27 +5,27 @@ import { AppointmentStatus } from "../enums/AppointmentStatus";
 
 const preloadUsers = [
     {
-        name: "Alejandro Cejas",
-        email: "ale@gmail.com",
-        birthdate: "22/01/2003",
-        nDni: 44657092,
-        username: "ale22",
+        name: "Lucas Fernández",
+        email: "lucas.fernandez@example.com",
+        birthdate: "14/08/1995",
+        nDni: 39567821,
+        username: "lucas95",
         password: "admin"
     },
     {
-        name: "Agustina Blanco",
-        email: "agus@gmail.com",
-        birthdate: "10/05/2002",
-        nDni: 44077794,
-        username: "agus10",
+        name: "Valentina Ruiz",
+        email: "valen.ruiz@example.com",
+        birthdate: "27/03/2000",
+        nDni: 42134567,
+        username: "valen27",
         password: "admin"
     },
     {
-        name: "Maria Sofia Brandalisse",
-        email: "sofi@gmail.com",
-        birthdate: "05/09/1989",
-        nDni: 32846237,
-        username: "sofi05",
+        name: "Diego Martínez",
+        email: "diego.mtz@example.com",
+        birthdate: "02/11/1987",
+        nDni: 30891234,
+        username: "diego87",
         password: "admin"
     }
 ]
@@ -34,19 +34,19 @@ const preloadAppointments = [
     {
         date: "15/07/2024",
         time: "10:00",
-        userId: 1,
+        userId: 8,
         status: AppointmentStatus.ACTIVE
     },
     {
         date: "15/07/2024",
         time: "10:00",
-        userId: 2,
+        userId: 9,
         status: AppointmentStatus.ACTIVE
     },
     {
         date: "15/07/2024",
         time: "10:00",
-        userId: 3,
+        userId: 10,
         status: AppointmentStatus.ACTIVE
     },
 ]
@@ -72,7 +72,7 @@ export const preloadUserData = async () => {
                 ...user,
                 credentials: newCredential
             })
-            
+
             await transactionalEntityManager.save(newUser)
         }
         console.log("Se ha creado la precarga de datos de USUARIOS con exito");
