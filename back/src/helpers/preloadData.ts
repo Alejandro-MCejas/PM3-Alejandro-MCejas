@@ -51,6 +51,11 @@ const preloadAppointments = [
     },
 ]
 
+const formatDate = (date: string): Date => {
+    const [day, month, year] = date.split("/").map(Number)
+    return new Date(year, month - 1, day)
+}
+
 export const preloadUserData = async () => {
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
         const users = await UserModel.find()
@@ -59,6 +64,8 @@ export const preloadUserData = async () => {
         if (users.length) return console.log("No se hizo la precarga de USUARIOS porque ya existen");
 
         for await (const user of preloadUsers) {
+            const formattedDate = formatDate(user.birthdate)
+
             const newCredential = await transactionalEntityManager.save(CredentialModel.create({
                 username: user.username,
                 password: user.password
@@ -66,10 +73,9 @@ export const preloadUserData = async () => {
 
 
 
-
-
             const newUser = UserModel.create({
                 ...user,
+                birthdate: formattedDate,
                 credentials: newCredential
             })
 
@@ -94,7 +100,8 @@ export const preloadAppointmentsData = async () => {
         await queryRunner.startTransaction()
 
         const promises = preloadAppointments.map(async (appointment) => {
-            const newAppointment = await AppointmentModel.create(appointment)
+            const formattedDate = formatDate(appointment.date)
+            const newAppointment = await AppointmentModel.create({...appointment, date: formattedDate})
             await queryRunner.manager.save(newAppointment)
             const user = await UserModel.findOneBy({ id: appointment.userId })
             if (!user) throw Error("Usuario no encontrado")
