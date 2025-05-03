@@ -56,15 +56,15 @@ const formatDate = (date: string): Date => {
     return new Date(year, month - 1, day)
 }
 
-export const clearDataBase = async () => {
-    await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
-        await transactionalEntityManager.delete(Appointment, {})
-        await transactionalEntityManager.delete(User, {})
-        await transactionalEntityManager.delete(Credential, {})
-        console.log("Base de datos limpiada");
+// export const clearDataBase = async () => {
+//     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
+//         await transactionalEntityManager.delete(Appointment, {})
+//         await transactionalEntityManager.delete(User, {})
+//         await transactionalEntityManager.delete(Credential, {})
+//         console.log("Base de datos limpiada");
         
-    })
-}
+//     })
+// }
 
 export const preloadUserData = async () => {
     const createdUsers: User[] = []
