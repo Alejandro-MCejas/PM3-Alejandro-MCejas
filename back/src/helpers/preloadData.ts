@@ -1,4 +1,6 @@
 import { AppDataSource, AppointmentModel, CredentialModel, UserModel } from "../config/data-source";
+import { Appointment } from "../entities/Appointment";
+import { Credential } from "../entities/Credential";
 import { User } from "../entities/User";
 import { AppointmentStatus } from "../enums/AppointmentStatus";
 
@@ -52,6 +54,16 @@ const preloadAppointments = [
 const formatDate = (date: string): Date => {
     const [day, month, year] = date.split("/").map(Number)
     return new Date(year, month - 1, day)
+}
+
+export const clearDataBase = async () => {
+    await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
+        await transactionalEntityManager.delete(Appointment, {})
+        await transactionalEntityManager.delete(Credential, {})
+        await transactionalEntityManager.delete(User, {})
+        console.log("Base de datos limpiada");
+        
+    })
 }
 
 export const preloadUserData = async () => {
