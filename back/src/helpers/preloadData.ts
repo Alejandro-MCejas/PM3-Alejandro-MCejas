@@ -1,4 +1,5 @@
 import { AppDataSource, AppointmentModel, CredentialModel, UserModel } from "../config/data-source";
+import { User } from "../entities/User";
 import { AppointmentStatus } from "../enums/AppointmentStatus";
 
 
@@ -34,19 +35,16 @@ const preloadAppointments = [
     {
         date: "15/07/2024",
         time: "10:00",
-        userId: 8,
         status: AppointmentStatus.ACTIVE
     },
     {
         date: "15/07/2024",
         time: "10:00",
-        userId: 9,
         status: AppointmentStatus.ACTIVE
     },
     {
         date: "15/07/2024",
         time: "10:00",
-        userId: 10,
         status: AppointmentStatus.ACTIVE
     },
 ]
@@ -57,6 +55,8 @@ const formatDate = (date: string): Date => {
 }
 
 export const preloadUserData = async () => {
+    const createdUsers: User[] = []
+
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
         const users = await UserModel.find()
 
@@ -79,15 +79,20 @@ export const preloadUserData = async () => {
                 credentials: newCredential
             })
 
-            await transactionalEntityManager.save(newUser)
+            const savedUser = await transactionalEntityManager.save(newUser)
+            createdUsers.push(savedUser)
         }
         console.log("Se ha creado la precarga de datos de USUARIOS con exito");
 
     })
+
+    return createdUsers
 }
 
 
 export const preloadAppointmentsData = async () => {
+
+    const users = await preloadUserData()
 
     const queryRunner = AppDataSource.createQueryRunner()
     await queryRunner.connect()
@@ -99,15 +104,17 @@ export const preloadAppointmentsData = async () => {
 
         await queryRunner.startTransaction()
 
-        const promises = preloadAppointments.map(async (appointment) => {
+        const promises = preloadAppointments.map(async (appointment, i) => {
             const formattedDate = formatDate(appointment.date)
-            const newAppointment = await AppointmentModel.create({...appointment, date: formattedDate})
-            await queryRunner.manager.save(newAppointment)
-            const user = await UserModel.findOneBy({ id: appointment.userId })
-            if (!user) throw Error("Usuario no encontrado")
-            newAppointment.user = user
-            await queryRunner.manager.save(newAppointment)
 
+            const user = users[i]
+
+            if (!user) throw Error("Usuario no encontrado")
+            
+            const newAppointment = await AppointmentModel.create({...appointment, date: formattedDate, user})
+
+            await queryRunner.manager.save(newAppointment)
+            
         })
 
         await Promise.all(promises)
