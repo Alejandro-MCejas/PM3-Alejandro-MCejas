@@ -13,8 +13,8 @@ const initializeApp = async () => {
         })
 
     // await clearDataBase()
-    await preloadUserData()
-    await preloadAppointmentsData()
+    const users = await preloadUserData()
+    await preloadAppointmentsData(users)
 
     app.listen(PORT, () => {
         console.log(`Servidor escuchando en el puerto: ${PORT}`);

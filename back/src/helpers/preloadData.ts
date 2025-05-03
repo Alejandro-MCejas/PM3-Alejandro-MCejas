@@ -71,7 +71,7 @@ export const preloadUserData = async () => {
     const existingUsers = await UserModel.find({ order: { id: "ASC" } })
 
     if (existingUsers.length) {
-        console.log("No se ha creado la precarga de USUARIOS porque ya existen", existingUsers);
+        console.log("No se ha creado la precarga de USUARIOS porque ya existen");
         return existingUsers
         
     }
@@ -79,7 +79,7 @@ export const preloadUserData = async () => {
     const createdUsers: User[] = []
 
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
-        
+
         for await (const user of preloadUsers) {
             const formattedDate = formatDate(user.birthdate)
 
@@ -107,9 +107,7 @@ export const preloadUserData = async () => {
 }
 
 
-export const preloadAppointmentsData = async () => {
-
-    const users = await preloadUserData()
+export const preloadAppointmentsData = async (users: User[]) => {
 
     const queryRunner = AppDataSource.createQueryRunner()
     await queryRunner.connect()
