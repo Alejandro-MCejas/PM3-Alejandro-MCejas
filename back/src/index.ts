@@ -2,7 +2,7 @@ import app from "./server";
 import { PORT } from "./config/envs";
 import "reflect-metadata";
 import { AppDataSource } from "./config/data-source";
-import { preloadAppointmentsData, preloadUserData } from "./helpers/preloadData"
+import { clearDataBase, preloadAppointmentsData, preloadUserData } from "./helpers/preloadData"
 import { keepServerAwake } from "./utils/keepServerAwake";
 
 
@@ -11,7 +11,8 @@ const initializeApp = async () => {
         .then(res => {
             console.log("Base de datos conectada")
         })
-
+    
+    await clearDataBase()
     await preloadUserData()
     await preloadAppointmentsData()
 
