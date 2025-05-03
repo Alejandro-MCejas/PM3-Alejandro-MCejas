@@ -73,7 +73,11 @@ export const preloadUserData = async () => {
         const users = await UserModel.find()
 
 
-        if (users.length) return console.log("No se hizo la precarga de USUARIOS porque ya existen");
+        if (users.length) {
+            console.log("No se ha creado la precarga de USUARIOS porque ya existen");
+            return users
+            
+        }
 
         for await (const user of preloadUsers) {
             const formattedDate = formatDate(user.birthdate)
