@@ -74,8 +74,8 @@ export const preloadUserData = async () => {
 
 
         if (users.length) {
-            console.log("No se ha creado la precarga de USUARIOS porque ya existen");
-            return users
+            console.log("No se ha creado la precarga de USUARIOS porque ya existen", users);
+            return await UserModel.find({ order: {id: "ASC"}})
             
         }
 
