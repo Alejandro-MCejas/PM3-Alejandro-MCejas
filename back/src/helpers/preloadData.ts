@@ -59,8 +59,8 @@ const formatDate = (date: string): Date => {
 export const clearDataBase = async () => {
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
         await transactionalEntityManager.delete(Appointment, {})
-        await transactionalEntityManager.delete(Credential, {})
         await transactionalEntityManager.delete(User, {})
+        await transactionalEntityManager.delete(Credential, {})
         console.log("Base de datos limpiada");
         
     })
