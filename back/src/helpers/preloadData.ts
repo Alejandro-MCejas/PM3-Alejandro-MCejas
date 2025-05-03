@@ -67,18 +67,19 @@ const formatDate = (date: string): Date => {
 // }
 
 export const preloadUserData = async () => {
+
+    const existingUsers = await UserModel.find({ order: { id: "ASC" } })
+
+    if (existingUsers.length) {
+        console.log("No se ha creado la precarga de USUARIOS porque ya existen", existingUsers);
+        return existingUsers
+        
+    }
+
     const createdUsers: User[] = []
 
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
-        const users = await UserModel.find()
-
-
-        if (users.length) {
-            console.log("No se ha creado la precarga de USUARIOS porque ya existen", users);
-            return await UserModel.find({ order: {id: "ASC"}})
-            
-        }
-
+        
         for await (const user of preloadUsers) {
             const formattedDate = formatDate(user.birthdate)
 
