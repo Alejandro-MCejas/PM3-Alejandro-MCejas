@@ -5,6 +5,7 @@ import { AppDataSource } from "./config/data-source";
 import { preloadAppointmentsData, preloadUserData } from "./helpers/preloadData"
 import { keepServerAwake } from "./utils/keepServerAwake";
 
+// Modificaciones aca
 
 const initializeApp = async () => {
     await AppDataSource.initialize()

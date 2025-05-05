@@ -1,10 +1,8 @@
 import { AppDataSource, AppointmentModel, CredentialModel, UserModel } from "../config/data-source";
-import { Appointment } from "../entities/Appointment";
-import { Credential } from "../entities/Credential";
 import { User } from "../entities/User";
 import { AppointmentStatus } from "../enums/AppointmentStatus";
 
-
+// Modificaciones aca
 
 const preloadUsers = [
     {
@@ -143,46 +141,6 @@ export const preloadAppointmentsData = async (users: User[]) => {
         console.log("Ha finalizado la transacción");
         await queryRunner.release()
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    // try {
-    //     AppDataSource.manager.transaction(async (transactionalEntityManager) => {
-
-    //         const appointments = await AppointmentModel.find()
-
-    //         if(appointments.length) return console.log("No se ha creado la precarga de APPOINTMENTS porque ya existen");
-
-    //         for await (const appointment of preloadAppointments) {
-    //             const newAppointment = await AppointmentModel.create(appointment)
-    //             await transactionalEntityManager.save(newAppointment)
-    //             const user = await UserModel.findOneBy({ id: appointment.userId })
-    //             if (user) {
-    //                 newAppointment.user = user
-    //                 transactionalEntityManager.save(newAppointment)
-    //             }
-    //             else {
-    //                 throw Error("Usuario no encontrado")
-    //             }
-    //         }
-
-    //         console.log("Se ha creado la precarga de datos de APPOINTMENTS con exito");
-
-    //     })
-
-    // }
-    // catch (error) {
-    //     console.log(error)
-    // }
 
 }
 
