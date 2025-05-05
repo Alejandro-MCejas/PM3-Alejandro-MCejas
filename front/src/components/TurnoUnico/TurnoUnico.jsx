@@ -2,6 +2,7 @@ import styles from "./TurnoUnico.module.css"
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { cancelAppointment } from "../../redux/reducer";
+import baseUrl from "../../api";
 
 
 const TurnoUnico = ({ appointment: { id, date, time, status } }) => {
@@ -15,7 +16,7 @@ const TurnoUnico = ({ appointment: { id, date, time, status } }) => {
         const timeDifferenceInHours = (appointmentDateTime - now) / (1000 * 60 * 60);
 
         if (timeDifferenceInHours >= 24) {
-            axios.put(`http://localhost:3000/appointments/cancel/${id}`)
+            axios.put(`${baseUrl}/appointments/cancel/${id}`)
                 .then(res => {
                     console.log(res)
                     dispatch(cancelAppointment(id))

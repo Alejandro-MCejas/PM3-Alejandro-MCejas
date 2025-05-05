@@ -5,6 +5,7 @@ import { validateAppointments } from "../../helpers/validateAppointments"
 import styles from "./NuevosTurnos.module.css"
 import axios from "axios"
 import { createAppointment } from "../../redux/reducer"
+import baseUrl from "../../api"
 
 
 
@@ -48,7 +49,7 @@ const NuevosTurnos = () => {
         setErrors(validationErrors)
 
         if (Object.keys(validationErrors).length === 0) {
-            axios.post('http://localhost:3000/appointments/schedule', appointments)
+            axios.post(`${baseUrl}/appointments/schedule`, appointments)
                 .then(res => {
                     const newAppointment = res.data;
                     dispatch(createAppointment(newAppointment))

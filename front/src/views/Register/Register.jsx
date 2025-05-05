@@ -2,7 +2,7 @@ import styles from './Register.module.css'
 import { useState } from 'react'
 import { validate } from '../../helpers/validate'
 import axios from 'axios'
-
+import baseUrl from '../../api'
 
 const Register = () => {
     const [userData, setUserData] = useState({
@@ -42,7 +42,7 @@ const Register = () => {
 
         if (Object.keys(validationErrors).length === 0) {
             
-            axios.post('http://localhost:3000/users/register', userData)
+            axios.post(`${baseUrl}/users/register`, userData)
                 .then(res => {
                     if (res.status === 201) {
                         alert('Usuario registrado con éxito')

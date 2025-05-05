@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserAppointments } from "../../redux/reducer";
 import { useNavigate } from "react-router-dom";
+import baseUrl from "../../api";
 
 const MisTurnos = () => {
     const user = useSelector(state => state.user.user);
@@ -21,7 +22,7 @@ const MisTurnos = () => {
   
     useEffect(() => {
         if (user) {
-            axios.get(`http://localhost:3000/users/${user.id}`)
+            axios.get(`${baseUrl}/users/${user.id}`)
                 .then(res => {
                     console.log(res);
                     const { appointments } = res.data;
