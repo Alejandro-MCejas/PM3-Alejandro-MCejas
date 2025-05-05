@@ -39,7 +39,9 @@ const Login = () => {
         setErrors(validationErrors)
 
         if (Object.keys(validationErrors).length === 0) {
-            axios.post(`${baseUrl}/users/login`, userState)
+            axios.post(`${baseUrl}/users/login`, userState, {
+                withCredentials: true
+            })
                 .then(res => {
                     if (res.status === 200) {
                         alert("Sesión iniciada correctamente")
