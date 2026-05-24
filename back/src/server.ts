@@ -12,7 +12,7 @@ app.use(express.json());
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://pm-3-alejandro-m-cejas-k9tv12rg8.vercel.app/"
+    "https://pm-3-alejandro-m-cejas-k9tv12rg8.vercel.app"
 ]
 
 app.use(cors({
